@@ -1,0 +1,22 @@
+Module Module1
+
+    Sub Main()
+        Dim input, hold As String
+        Dim counter As Integer
+        'asking for input
+        Console.Write("Write a sentence:- ")
+        input = Console.ReadLine
+        'cleaning up
+        Trim(input)
+        For I = 1 To Len(input)
+            If Mid(input, I, 2) <> "  " Then
+                hold = hold + Mid(input, I, 1)
+            End If
+        Next
+        input = hold
+        'output
+        Console.WriteLine("The cleaned up sentence is :-" & vbNewLine & "*" & Trim(input) & "*" & vbNewLine & "The number of words including necessary space is " & Len(Trim(input)) & ".")
+        Console.ReadKey()
+    End Sub
+
+End Module

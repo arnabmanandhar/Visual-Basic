@@ -1,0 +1,21 @@
+Module Module1
+
+    Sub Main()
+        Dim input, hold, delete As String
+        'asking for input
+        Console.WriteLine("Write a sentence:- ")
+        input = Console.ReadLine
+        'cleaning up
+        Trim(input)
+        For I = 1 To Len(input)
+            If Mid(input, I, 2) <> "  " Then
+                hold = hold + Mid(input, I, 1)
+            End If
+        Next
+        input = hold
+        'choose a word to delete
+        Console.WriteLine("Choose a word that u wish to omit:- ")
+        Console.ReadKey()
+    End Sub
+
+End Module

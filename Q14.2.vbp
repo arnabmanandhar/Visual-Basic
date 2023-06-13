@@ -1,0 +1,37 @@
+Module Module1
+
+    Sub Main()
+        Dim input, holder(100), hold As String
+        Dim A, j As Integer
+        A = 0
+        'asking for input
+        Console.Write("Write a sentence:- ")
+        input = Trim(Console.ReadLine)
+        'cleaning up
+        For I = 1 To Len(input)
+            If Mid(input, I, 2) <> "  " Then
+                hold = hold + Mid(input, I, 1)
+            End If
+        Next
+        input = hold
+        hold = ""
+        'arranging data
+        For I = 1 To Len(input) Step 1
+            If Mid(input, I, 1) <> " " Then
+                hold = hold + Mid(input, I, 1)
+            ElseIf Mid(input, I, 1) = " " Or I = Len(input) Then
+                j = I
+                A = A + 1
+                holder(A) = hold
+                hold = ""
+            End If
+        Next
+        holder(A + 1) = Mid(input, j + 1, Len(input) - j)
+        'output
+        For I = 1 To A + 1 Step 1
+            Console.WriteLine(holder(I))
+        Next
+        Console.ReadKey()
+    End Sub
+
+End Module

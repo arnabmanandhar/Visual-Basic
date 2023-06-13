@@ -1,0 +1,49 @@
+Module Module1
+
+    Sub Main()
+        Dim myList(20), n, x, temp, pass As Integer
+        Dim best, worst, total, average, sims As Integer
+        Dim r As New Random
+        Dim swap As Boolean
+        'starting program
+        sims = 1000
+        For i = 1 To sims
+            'generating original list via RNGesus)
+            For x = 1 To 20
+                n = r.Next(1, 101)
+                myList(x) = n
+            Next
+            'bubble sort
+            n = 19
+            pass = 0
+            Do
+                swap = False
+                For x = 1 To n
+                    If myList(x) > myList(x + 1) Then
+                        temp = myList(x)
+                        myList(x) = myList(x + 1)
+                        myList(x + 1) = temp
+                        swap = True
+                    End If
+                Next
+                n = n - 1
+                pass = pass + 1
+            Loop Until swap = False
+            'printing output
+            Console.WriteLine("List " & i & " required total number of " & pass & " passes.")
+            'evaluating the pass
+            If i = 1 Then
+                best = pass
+                worst = pass
+            Else
+                If pass > worst Then worst = pass
+                If pass < best Then best = pass
+            End If
+            total = total + pass
+        Next i
+        average = (best + worst) / 2
+        Console.WriteLine(vbNewLine & "Best : " & best & ", Worst: " & worst & ", Average: " & average)
+        Console.ReadKey()
+    End Sub
+
+End Module

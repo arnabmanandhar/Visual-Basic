@@ -1,0 +1,16 @@
+Module Module1
+
+    Sub Main()
+        Dim a, b As String
+        'input goes here
+        Console.Write("Enter a string that u want to reeeeeverse. --> ")
+        a = Trim(Console.ReadLine)
+        'reversals goes here
+        For I = Len(a) To 1 Step -1
+            b = b + Mid(a, I, 1)
+        Next
+        Console.Write("Here's your reversal sire. --> " & b)
+        Console.ReadKey()
+    End Sub
+
+End Module

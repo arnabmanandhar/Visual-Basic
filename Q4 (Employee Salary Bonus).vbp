@@ -1,0 +1,39 @@
+Module Module1
+
+    Sub Main()
+        Dim G, X, S As Integer
+        Dim Q As String
+        Do
+            Do
+                Console.Write("Enter the employee's grade? (1/2): ")
+                G = Console.ReadLine
+            Loop Until G = 1 Or G = 2
+            Console.Write("Enter the employee's years of experience?: ")
+            X = Console.ReadLine
+            Console.Write("Enter the employee's salary?: ")
+            S = Console.ReadLine
+            If G = 1 Then
+                If X >= 0 And X <= 2 Then
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 3 / 100)
+                ElseIf X > 2 And X <= 5 Then
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 7 / 100)
+                Else
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 10 / 100)
+                End If
+            Else
+                If X <= 0 And X <= 2 Then
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 4 / 100)
+                ElseIf X > 2 And X <= 6 Then
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 8 / 100)
+                Else
+                    Console.WriteLine("The employee's salary bonus is Rs." & S * 12 / 100)
+                End If
+            End If
+            Console.WriteLine(vbNewLine & "Do you want to check another salary bonus? (Yes/No).")
+            Q = Console.ReadLine
+            Console.WriteLine()
+        Loop While Q = "Yes" Or Q = "Y" Or Q = "yes" Or Q = "y"
+            Console.ReadKey()
+    End Sub
+
+End Module

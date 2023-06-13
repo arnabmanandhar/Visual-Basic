@@ -1,0 +1,24 @@
+Module Module1
+
+    Sub Main()
+        Dim x, y As Integer
+        Dim a, b As String
+        'asking for input
+        Console.Write("Enter a string:- ")
+        a = Trim(UCase(Console.ReadLine))
+        'revertendo and returnendo
+        x = Len(a)
+        For I = x To 1 Step -1
+            b = b + Mid(a, I, 1)
+        Next
+        'checkendo for palindromeo
+        If a = b Then
+            Console.WriteLine("Yo bruh , I dunno waddup but this sure is a palindrome.")
+        Else
+            Console.WriteLine("BRUH#2.mp5")
+        End If
+        Console.ReadKey()
+
+    End Sub
+
+End Module

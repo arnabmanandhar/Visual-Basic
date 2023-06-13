@@ -1,0 +1,42 @@
+Module Module1
+
+    Sub Main()
+        Dim list(5) As Integer
+        Dim index, x, sNum As Integer
+        Dim found As Boolean
+        'array initialization
+        For index = 1 To 5
+            list(index) = -1
+        Next
+        'printing arra contents serially
+        For index = 1 To 5
+            Console.WriteLine(list(index))
+        Next
+        'input and store data in array
+        For index = 5 To 1 Step -1
+            Console.Write("Enter number {0}:", index)
+            list(index) = Console.ReadLine()
+        Next
+        'printing array contents serially
+        For index = 1 To 5
+            Console.WriteLine(list(index))
+        Next
+        'searching data in array (using serial search) done 3 times as a demo
+        For x = 1 To 3
+            Console.Write("Enter number to seach :")
+            sNum = Console.ReadLine()
+            found = False
+            For index = 1 To 5
+                If list(index) = sNum Then
+                    Console.Write("Found at postion " & index & ".")
+                    found = True
+                End If
+            Next index
+            If found = False Then
+                Console.WriteLine("Not found.")
+            End If
+        Next x
+        Console.ReadKey()
+    End Sub
+
+End Module

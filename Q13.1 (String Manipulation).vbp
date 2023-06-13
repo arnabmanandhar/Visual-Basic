@@ -1,0 +1,24 @@
+Module Module1
+
+    Sub Main()
+        Dim a, b As String
+        Dim x, y As Integer
+        'printing alphabets between any two input by the user
+        Console.Write("The first letter:- ")
+        a = UCase(Console.ReadLine)
+        Console.Write("The second letter:- ")
+        b = UCase(Console.ReadLine)
+        'ASCIIy stuff 
+        If Asc(a) > Asc(b) Then
+            For x = Asc(a) To Asc(b) Step -1
+                Console.Write(Chr(x) & " ")
+            Next
+        Else
+            For x = Asc(a) To Asc(b)
+                Console.Write(Chr(x) & " ")
+            Next
+        End If
+        Console.ReadKey()
+    End Sub
+
+End Module

@@ -1,0 +1,46 @@
+Module Module1
+
+    Sub Main()
+        Dim mat_A(3, 3), mat_B(3, 3), mat_C(3, 3) As Integer
+        Dim row, col As Integer
+        Console.WriteLine("Enter data for Matrix A (row-major)")
+        For row = 1 To 3
+            Console.WriteLine("Enter data for row " & row)
+            For col = 1 To 3
+                Console.Write("Enter data for column {0}: ", col)
+                mat_A(row, col) = Console.ReadLine()
+            Next
+        Next
+        Console.WriteLine()
+        Console.WriteLine("******* Matrix A *******")
+        For row = 1 To 3
+            For col = 1 To 3
+                Console.Write(mat_A(row, col) & vbTab)
+            Next
+            Console.WriteLine()
+        Next
+        For row = 1 To 3
+            For col = 1 To 3
+                mat_B(col, row) = mat_A(row, col)
+            Next
+        Next
+        Console.WriteLine()
+        Console.WriteLine("******* Matrix B *******")
+        For row = 1 To 3
+            For col = 1 To 3
+                Console.Write(mat_B(row, col) & vbTab)
+            Next
+            Console.WriteLine()
+        Next
+        Console.WriteLine()
+        Console.WriteLine("******* Matrix C *******")
+        For row = 1 To 3
+            For col = 1 To 3
+                mat_C(row, col) = mat_A(row, col) + mat_B(row, col)
+                Console.Write(mat_C(row, col) & vbTab)
+            Next
+            Console.WriteLine()
+        Next
+        Console.ReadKey()
+    End Sub
+End Module

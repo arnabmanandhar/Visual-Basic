@@ -1,0 +1,28 @@
+Module Module1
+
+    Sub Main()
+        Dim M As Integer
+        Dim Q As String
+         Q = "Yes"
+        Do While Q = "Yes" Or Q = "yes" Or Q = "Y" Or Q = "y"
+            Console.Write("Enter the student's marks:-")
+            M = Console.ReadLine
+            Select Case M
+                Case Is < 0, Is > 100
+                    Console.WriteLine("Invalid Marks.")
+                Case 80 To 100
+                    Console.WriteLine("Grade: A")
+                Case 60 To 79
+                    Console.WriteLine("Grade: B")
+                Case 40 To 59
+                    Console.WriteLine("Grade: C")
+                Case Else
+                    Console.WriteLine("Grade: F")
+            End Select
+            Console.WriteLine("Do you want to continue?(Yes/No)")
+            Q = Console.ReadLine
+        Loop
+        Console.ReadKey()
+    End Sub
+
+End Module

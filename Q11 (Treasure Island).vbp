@@ -1,0 +1,118 @@
+Module Module1
+
+    Sub Main()
+        'declarations of different value types and values along with more values
+        Dim r As New Random
+        Dim beach(10, 10), player, hDir, vDir As String
+        Dim tRow, tCol, row, col, dRow, dCol As Integer
+        Const Sand As String = ":::"
+        Const Treasure As String = "[$]"
+        Const Hole As String = " O "
+        Dim hLine As New String("-", 43)
+        Dim Gamewon, ValidDig As Boolean
+        'generating sand object placeholders on the beach 
+        For row = 1 To 10
+            For col = 1 To 10
+                beach(row, col) = Sand
+            Next
+        Next
+        'generating the location of the treasure via RNG
+        tRow = r.Next(1, 11)
+        tCol = r.Next(1, 11)
+        beach(tRow, tCol) = Treasure
+        'entering the name of the player
+        Console.WriteLine("**** Hunting Pirate Treasure ****")
+        Console.Write("Enter your name : ")
+        player = Console.ReadLine()
+        'marking the map of the beach with grids and generating sand and beach objects
+        Console.Write("   ")
+        For col = 1 To 10
+            Console.Write("  {0} ", col)
+        Next
+        Console.WriteLine(vbNewLine & " " & hLine)
+        For row = 1 To 10
+            If row < 10 Then
+                Console.Write(" {0} |", row)
+            Else
+                Console.Write(" {0}|", row)
+            End If
+            For col = 1 To 10
+                If col = tCol And row = tRow Then
+                    Console.Write("{0}|", Sand)
+                Else
+                    Console.Write("{0}|", beach(row, col))
+                End If
+            Next
+            Console.WriteLine(vbNewLine & " " & hLine)
+        Next
+        'looping to handle player' progress dynamically
+        Do
+            Gamewon = False
+            'reprinting the game and player's name after every refresh for effects
+            Console.Clear()
+            Console.WriteLine("**** Treasure Island ****")
+            Console.WriteLine("Treasure hunter " & player & " is looking for a big treasure! Yoho!" & vbNewLine)
+            'new updated map
+            Console.Write("   ")
+            For col = 1 To 10
+                Console.Write("  {0} ", col)
+            Next
+            Console.WriteLine(vbNewLine & " " & hLine)
+            For row = 1 To 10
+                If row < 10 Then
+                    Console.Write(" {0} |", row)
+                Else
+                    Console.Write(" {0}|", row)
+                End If
+                For col = 1 To 10
+                    If col = tCol And row = tRow Then
+                        Console.Write("{0}|", Sand)
+                    Else
+                        Console.Write("{0}|", beach(row, col))
+                    End If
+                Next
+                Console.WriteLine(vbNewLine & " " & hLine)
+            Next
+            'here comes the digging part
+            Console.WriteLine("Where do you wish to dig?")
+            Do
+                ValidDig = False
+                Console.Write("Enter the row:- ")
+                dRow = Console.ReadLine
+                Console.Write("Enter the column:- ")
+                dCol = Console.ReadLine
+                'checking if the location has been dug before
+                If beach(dRow, dCol) <> Hole Then
+                    ValidDig = True
+                Else
+                    Console.WriteLine("Oops! It looks like you already dug here please try again.")
+                End If
+            Loop Until ValidDig = True
+            If dRow <> tRow And dCol <> tCol Then
+                beach(dRow, dCol) = Hole
+            End If
+            'giving hints to the player
+            Console.WriteLine("You dug in row " & dRow & " and column " & dCol & ".")
+            If dRow = tRow And dCol = tCol Then
+                Console.WriteLine("Congratulations! You found the treasure!")
+                Gamewon = True
+            End If
+            If Gamewon <> True Then
+                If dRow > tRow Then
+                    vDir = "upper"
+                Else
+                    vDir = "lower"
+                End If
+                If dCol > tCol Then
+                    hDir = "left"
+                Else
+                    hDir = "right"
+                End If
+                Console.WriteLine("Looks like this location is empty. Tough luck , but try digging to the " & hDir & " and in the " & vDir & " direction.")
+                Console.WriteLine("Press enter to dig again")
+            End If
+        Loop Until Gamewon = True
+        Console.ReadKey()
+    End Sub
+
+End Module

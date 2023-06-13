@@ -1,0 +1,55 @@
+Module Module1
+
+    Sub Main()
+        Dim x, y, z, a, p, q, I, b, c, d As Integer
+        p = 1
+        q = 1
+        Console.Write("Enter first number: ")
+        x = Console.ReadLine
+        Console.Write("Enter second number: ")
+        y = Console.ReadLine
+        Console.Write("Enter third number: ")
+        z = Console.ReadLine
+        b = x
+        c = y
+        d = z
+        'trying to find the greatest number
+        If x > y And x > z Then
+            a = x
+        ElseIf y > x And y > z Then
+            a = y
+        Else : a = z
+        End If
+        For I = 1 To a Step 1
+            'for HCF
+            If x Mod I = 0 And y Mod I = 0 And z Mod I = 0 Then
+                p = p * I
+            End If
+            'for LCM
+            If b Mod I = 0 And c Mod I = 0 And d Mod I = 0 Then
+                q = q * I
+                b = b / I
+                c = c / I
+                d = d / I
+            ElseIf b Mod I = 0 And c Mod I = 0 And d Mod I <> 0 Then
+                q = q * I
+                b = b / I
+                c = c / I
+            ElseIf b Mod I <> 0 And c Mod I = 0 And d Mod I = 0 Then
+                q = q * I
+                c = c / I
+                d = d / I
+            ElseIf b Mod I = 0 And c Mod I <> 0 And d Mod I = 0 Then
+                q = q * I
+                b = b / I
+                d = d / I
+            End If
+        Next
+        'final LCM answer
+        q = q * b * c * d
+        Console.WriteLine("The HCF is " & p & ".")
+        Console.WriteLine("The LCM is " & q & ".")
+        Console.ReadKey()
+    End Sub
+
+End Module

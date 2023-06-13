@@ -1,0 +1,93 @@
+Module Module1
+
+    Sub Main()
+        'declarations
+        Dim Grid(3, 3) As Char
+        Dim Curplayer, ans As String
+        Dim row, col, moves As Integer
+        Dim GameWon, ValidMove As Boolean
+        Const Blank As Char = " "
+        'start game loop (in a loop)
+        Do
+            'initialize board
+            For row = 1 To 3
+                For col = 1 To 3
+                    Grid(row,col) = Blank
+                Next
+            Next
+            'print empty board
+            Console.Clear()
+            Console.WriteLine("     1   2   3")
+            Console.WriteLine(" --------------")
+            For row = 1 To 3
+                Console.WriteLine(" {0} | {1} | {2} | {3}|",
+                    row, Grid(row, 1), Grid(row, 2), Grid(row, 3))
+                Console.WriteLine(" --------------")
+            Next
+            'initialize game data
+            Curplayer = "X"
+            moves = 0
+            GameWon = False
+            'start loop to handle game turn by turn
+            Do
+                'ask for and validate player move
+                Console.WriteLine(vbNewLine & "Turn of player " & Curplayer)
+                Console.WriteLine("Enter your move (row and column)")
+                ValidMove = False
+                Do
+                    Console.Write("Enter row : ")
+                    row = Console.ReadLine
+                    Console.Write("Enter col : ")
+                    col = Console.ReadLine
+                    If row < 1 Or row > 3 Or col < 1 Or col > 3 Then
+                        Console.WriteLine("Invalid move. Try again.")
+                    ElseIf Grid(row, col) <> Blank Then
+                        Console.WriteLine("Invalid move. Try again.")
+                    Else
+                        ValidMove = True
+                    End If
+                Loop Until ValidMove = True
+                'store player move
+                Grid(row, col) = Curplayer
+                'increase move count
+                moves = moves + 1
+                'check if game has been won (from 5th move onwards is sensible)
+                'check row
+                If Grid(row, 1) = Grid(row, 2) And Grid(row, 3) = Grid(row, 2) Then GameWon = True
+                'check column
+                If Grid(1, col) = Grid(2, col) And Grid(2, col) = Grid(3, col) Then GameWon = True
+                'check diagonals
+                If Grid(1, 1) = Grid(2, 2) And Grid(2, 2) = Grid(3, 3) And Grid(2, 2) <> Blank Then GameWon = True
+                If Grid(1, 3) = Grid(2, 2) And Grid(2, 2) = Grid(3, 1) And Grid(2, 2) <> Blank Then GameWon = True
+                'print updated board
+                Console.Clear()
+                Console.WriteLine("     1   2   3")
+                Console.WriteLine(" --------------")
+                For row = 1 To 3
+                    Console.WriteLine(" {0} | {1} | {2} | {3}|",
+                        row, Grid(row, 1), Grid(row, 2), Grid(row, 3))
+                    Console.WriteLine(" --------------")
+                Next
+                Console.WriteLine()
+                'print game message if won or draw
+                If GameWon = True Then
+                    Console.WriteLine("Congratulations! Player {0} has won.", Curplayer)
+                ElseIf moves = 9 Then
+                    Console.WriteLine("Game draw!!")
+                Else
+                    'rotate turn if game not finished
+                    If Curplayer = "X" Then
+                        Curplayer = "O"
+                    Else
+                        Curplayer = "X"
+                    End If
+                End If
+                'game ends when won or drawn
+            Loop Until moves = 9 Or GameWon = True
+            'check if another game to be played
+            Console.Write("Play again? (y/n): ")
+            ans = Console.ReadLine
+        Loop Until UCase(ans) = "N"
+    End Sub
+
+End Module

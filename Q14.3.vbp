@@ -1,0 +1,25 @@
+Module Module1
+
+    Sub Main()
+        Dim input, hold As String
+        'asking for input
+        Console.Write("Write a sentence:- ")
+        input = Console.ReadLine
+        'cleaning up
+        Trim(input)
+        For I = 1 To Len(input)
+            If Mid(input, I, 2) <> "  " Then
+                hold = hold + Mid(input, I, 1)
+            End If
+        Next
+        input = Trim(hold)
+        hold = ""
+        For I = Len(input) To 1 Step -1
+            hold = hold + Mid(input, I, 1)
+        Next
+        input = hold
+        Console.WriteLine("The reversed line is:- " & vbNewLine & input)
+        Console.ReadKey()
+    End Sub
+
+End Module

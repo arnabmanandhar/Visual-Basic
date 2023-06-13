@@ -1,0 +1,24 @@
+Module Module1
+
+    Sub Main()
+        Dim a, list(), sentence, b, carry As String
+        Dim x, y As Integer
+        'inputations
+        Console.WriteLine("Write a sentence here.:-")
+        a = Console.ReadLine
+        Console.WriteLine("Enter a word that you want to search here.:-")
+        b = Console.ReadLine
+        'computations
+        ReDim list(Len(sentence))
+        For I = 1 To Len(sentence)
+            Trim(sentence)
+            If Mid(sentence, 1, I) <> " " Then
+             = carry + Mid(sentence, 1, I)
+
+            Else
+                carry = carry + " "
+            End If
+        Next
+    End Sub
+
+End Module

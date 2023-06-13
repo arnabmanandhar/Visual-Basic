@@ -1,0 +1,18 @@
+Module Module1
+
+    Sub Main()
+        Dim x, y, z As Integer
+        x = 1
+        y = 0
+        z = 0
+        Do
+            Console.Write(x & " ")
+            z = x + y
+            y = x
+            x = z
+        Loop While x <= 2000
+        Console.WriteLine(vbNewLine)
+        Console.ReadKey()
+    End Sub
+
+End Module
