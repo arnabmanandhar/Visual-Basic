@@ -1,1 +1,2 @@
 *.vbp linguist-detectable=VB
+*.txt linguist-detectable=false
