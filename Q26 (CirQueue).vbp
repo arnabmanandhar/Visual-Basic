@@ -1,0 +1,93 @@
+Module Module1
+    Dim HP, TP As Integer
+    Dim myQueue(5) As String
+    Sub Main()
+        Dim i As Integer
+        Dim c As Integer = 64
+        Dim a As String
+        Call initializeQ()
+        Do
+            Console.Write("1.Enqueue or 2.Dequeue or 3.Exit : ")
+            a = Console.ReadLine
+            If a = "" Then
+                i = 0
+            End If
+            For x = 1 To 27
+                If a = (Chr(c + x)) Then
+                    i = 0
+                Else
+                    i = CInt(a)
+                End If
+            Next
+            If i = 1 Then
+                c = c + 1
+                Call enQcirc(Chr(c))
+                Call printQcirc()
+                Call printArray()
+            ElseIf i = 2 Then
+                Call deQcirc()
+                Call printQcirc()
+                Call printArray()
+            ElseIf i = 3 Then
+                Console.WriteLine("Press N once to go back or press any button.")
+                a = Console.ReadLine
+                If UCase(a) = "N" Then
+                    i = 0
+                Else : Console.WriteLine("Press any button again.")
+                End If
+            End If
+        Loop Until i = 3
+
+        Console.ReadKey()
+    End Sub
+    Sub initializeQ()
+        For x = 1 To 5
+            myQueue(x) = ""
+        Next
+        HP = 0
+        TP = 0
+    End Sub
+    Sub enQcirc(newItem As String)
+        Dim CP As Integer = (TP Mod 5) + 1
+        If CP = HP Then
+            Console.WriteLine("Q is full.")
+        Else
+            Console.WriteLine("Enqueued : " & newItem)
+            TP = CP
+            myQueue(TP) = newItem
+            If HP = 0 Then HP = TP
+        End If
+    End Sub
+    Sub deQcirc()
+        If HP = 0 Then
+            Console.WriteLine("Q is empty.")
+        Else
+            Console.WriteLine("Dequeued : " & myQueue(HP))
+            myQueue(HP) = ""
+            HP = (HP Mod 5) + 1
+            If HP = TP + 1 Then
+                HP = 0
+                TP = 0
+            End If
+        End If
+    End Sub
+    Sub printQcirc()
+        Dim CP As Integer
+        CP = HP
+        Console.Write("Head => ")
+        Do
+            Console.Write(" " & myQueue(CP))
+            CP = (CP Mod 5) + 1
+        Loop Until CP = (TP Mod 5) + 1
+        Console.WriteLine(" <= Tail")
+    End Sub
+    Sub printArray()
+        Console.WriteLine(vbNewLine & "Queue in array")
+        For x = 1 To 5
+            Console.Write(" " & x & "," & myQueue(x))
+            If x = HP Then Console.Write(" <= HP")
+            If x = TP Then Console.Write(" <= TP")
+            Console.WriteLine()
+        Next
+    End Sub
+End Module

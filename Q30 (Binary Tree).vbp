@@ -1,0 +1,141 @@
+Module Module1
+        Structure NODE
+            Dim RP As Integer
+            Dim LP As Integer
+            Dim Data As String
+        End Structure
+        Const Maxima As Integer = 10
+        Const Null As Integer = 0
+        Dim Free, Root, Neu, Previous, Current As Integer
+        Dim Tree() As NODE
+    Sub Main()
+        Dim newdat As String
+        Dim choice As Integer
+        Dim opt() As String = {"", "add", "search"}
+        Call CreateTree()
+        Do
+            choice = menu()
+            If choice = 1 Or choice = 2 Then
+                Console.Write("Enter name that you wish to " & opt(choice) & ":-")
+                newdat = Console.ReadLine
+                If choice = 1 Then
+                    Call AddNode(newdat)
+                ElseIf choice = 2 Then
+                    Call search(newdat)
+                End If
+            ElseIf choice >= 3 And choice <= 5 Then
+                'Call printTree(Root, choice)
+                Console.WriteLine()
+                If choice = 3 Then
+                    Call printINorder(Root)
+                ElseIf choice = 4 Then
+                    Call printPREorder(Root)
+                ElseIf choice = 5 Then
+                    Call printPOSTOrder(Root)
+                End If
+            End If
+            'call printArray()
+            If choice <> 6 Then
+                Console.Write("Press any key to continue...")
+                Console.ReadKey()
+                Console.Clear()
+            End If
+        Loop Until choice = 6
+    End Sub
+        Sub CreateTree()
+        ReDim Tree(Maxima)
+        For x = 1 To Maxima
+            Tree(x).Data = "*"
+            Tree(x).LP = x + 1
+            Tree(x).RP = Null
+        Next
+        Tree(Maxima).LP = Null
+        Free = 1
+        Root = Null
+    End Sub
+        Sub AddNode(newdata As String)
+            Dim Branch As String
+            If Free = Null Then
+                Console.WriteLine("Can't add. No space available.")
+            Else
+                Neu = Free
+                Free = Tree(Neu).LP
+                Tree(Neu).Data = newdata
+                Tree(Neu).LP = Null
+                Current = Root
+                While Current <> Null
+                    Previous = Current
+                    If newdata <= Tree(Current).Data Then
+                        Branch = "L"
+                        Current = Tree(Current).LP
+                    Else
+                        Branch = "R"
+                        Current = Tree(Current).RP
+                    End If
+            End While
+            If Root = Null Then
+                Root = Neu
+            ElseIf Branch = "L" Then
+                Tree(Previous).LP = Neu
+            ElseIf Branch = "R" Then
+                Tree(Previous).RP = Neu
+            End If
+            End If
+    End Sub
+    Function menu()
+        Dim x As Integer
+        Console.WriteLine("Menu:-" & vbNewLine & "Enter your choice:-")
+        Console.WriteLine("1) Add new data." & vbNewLine & "2) Search for an existing data." & vbNewLine & "3) Print In Order" & vbNewLine & "4) Print PRE Order" & vbNewLine & "5) Print POST Order" & vbNewLine & "6) Exit the program")
+        x = Console.ReadLine
+        Return x
+    End Function
+    Sub search(d)
+        If Root = Null Then
+            Console.WriteLine("tree is empty.")
+        Else
+            Current = Root
+            While Current <> Null And Tree(Current).Data <> d
+                If Tree(Current).Data > d Then
+                    Current = Tree(Current).LP
+                Else
+                    Current = Tree(Current).RP
+                End If
+            End While
+            If Current = Null Then
+                Console.WriteLine("Data is not present in the tree.")
+            Else
+                Console.WriteLine("Data is present in the tree.")
+            End If
+        End If
+    End Sub
+    Sub printPREorder(r)
+        Console.Write(Tree(Current).Data & ", ")
+        If Tree(Current).LP <> Null Then Call printPREorder(Tree(Current).LP)
+        If Tree(Current).RP <> Null Then Call printPREorder(Tree(Current).RP)
+    End Sub
+    Sub printINorder(r)
+        If Tree(Current).LP <> Null Then
+            Call printINorder(Tree(Current).LP)
+        End If
+        Console.Write(Tree(Current).Data & ", ")
+        If Tree(Current).RP <> Null Then
+            Call printINorder(Tree(Current).RP)
+        End If
+    End Sub
+    Sub printPOSTOrder(r)
+        If Tree(Current).LP <> Null Then
+            Call printPOSTOrder(Tree(Current).LP)
+        End If
+
+        If Tree(Current).RP <> Null Then
+            Call printINorder(Tree(Current).RP)
+            Console.Write(Tree(Current).Data & ", ")
+        End If
+    End Sub
+    Sub printArray()
+
+    End Sub
+    Sub printTree(n, p)
+
+    End Sub
+End Module

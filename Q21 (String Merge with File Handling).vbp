@@ -1,0 +1,48 @@
+Module Module1
+
+    Sub Main()
+        Call extract()
+        Call Print()
+        Console.ReadKey()
+    End Sub
+    Sub extract()
+        'read input file
+        Dim word, p1, p2 As String
+        Dim myfile As String = "D:\Biki Nath Newa\Obj1Q21.txt" 'lmao don't forget to change this noobs
+        Dim reader As IO.StreamReader
+        reader = IO.File.OpenText(myfile)
+        'process stromgs
+        'give to join
+        While Not reader.EndOfStream
+            word = reader.ReadLine()
+            For x = 1 To Len(word)
+                If Mid(word, x, 1) = "*" Then p1 = Right(word, Len(word) - x)
+            Next
+            word = reader.ReadLine
+            For x = 1 To Len(word)
+                If Mid(word, x, 1) = "*" Then p2 = Right(word, Len(word) - x)
+            Next
+            Call join(p1, p2)
+        End While
+        reader.Close()
+    End Sub
+    Sub join(p1 As String, p2 As String)
+        'take 2 parts as parameter
+        'join them then store to output files
+        Dim myfile As String = "D:\Biki Nath Newa\Obj2Q21.txt" 'lmao don't forget to change this noobs
+        Dim writer As IO.StreamWriter
+        writer = IO.File.AppendText(myfile)
+        writer.WriteLine(p1 & p2)
+        writer.Close()
+   End Sub
+    Sub Print()
+        Dim myfile As String = "D:\Biki Nath Newa\Obj1Q21.txt" 'lmao don't forget to change this noobs
+        Dim reader As IO.StreamReader
+        reader = IO.File.OpenText(myfile)
+        While Not reader.EndOfStream
+            Console.WriteLine(reader.ReadLine)
+        End While
+        reader.Close()
+    End Sub
+
+End Module

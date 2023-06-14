@@ -1,0 +1,93 @@
+Module Module1
+    Class NName
+        Private Title, fName, Lname As String
+        Public Sub New()
+        End Sub
+        Public Sub New(title As String, fn As String, ln As String)
+            Me.Title = title
+            fName = fn
+            Lname = ln
+        End Sub
+        Public Sub DisplayName(opt As Integer)
+            If opt = 1 Then
+                Console.WriteLine("Name: {0} {1} {2}", Title, fName, Lname)
+            ElseIf opt = 2 Then
+                Console.WriteLine("Name: {0} {1}", Lname, fName)
+            End If
+        End Sub
+    End Class
+    Public MustInherit Class Staff
+            Private SID As Integer
+            Private sName As NName
+        Protected Salary As Single
+            Public Sub New(id As Integer, tt As String, fn As String, ln As String, sal As Single)
+                SID = id
+                sName = New NName(tt, fn, ln)
+                Salary = sal
+            End Sub
+            Public Sub New(SID As Integer, Salary As Single)
+                Me.SID = SID 'me is a qualifier which tells the program where the SID is from because multiple SIDs -(class staff in this case)
+                Me.Salary = Salary
+            End Sub
+            Public Sub New() 'constructors, plus this is a null constructor
+            End Sub
+            Public Overridable Sub printProperties() 'because there's more than 1 printProperties
+                Console.WriteLine("----------------------------------------")
+                Console.WriteLine("ID:{0}", Me.SID)
+                sName.DisplayName(1)
+                Console.WriteLine("Salary: {0}", Salary)
+        End Sub
+        Public Overridable Sub PrintLunchCost()
+        End Sub
+    End Class
+    Public Class Teacher
+        Inherits Staff
+        Private Classroom As String
+        Private FormGroup As Integer
+        Public Sub New()
+        End Sub
+        Public Sub New(id, tt, fn, ln, sal, cr, fg)
+            MyBase.New(id, tt, fn, ln, sal) 'myBase. prints properties from the inherited parent constructor
+            Classroom = cr
+            FormGroup = fg
+        End Sub
+        Public Overrides Sub printProperties() 'the first printProperties
+            MyBase.printProperties()
+            Console.WriteLine("Classroom:{0}", Classroom)
+            Console.WriteLine("Form Group: {0}", FormGroup)
+        End Sub
+        Public Overrides Sub PrintLunchCost()
+            Console.WriteLine("Lunch cost: " & Salary / 100)
+        End Sub
+    End Class
+    Public Class SUP_Staff
+        Inherits Staff
+        Private Status As String
+        Private Department As String
+        Public Overrides Sub printProperties() 'the other printProperties
+            MyBase.printProperties()
+            Console.WriteLine("Status:{0}", Status)
+            Console.WriteLine("Department: {0}", Department)
+        End Sub
+        Public Sub New(id, t, fn, ln, s, st, de)
+            MyBase.New(id, t, fn, ln, s) 'myBase. prints properties from the inherited parent constructor
+            Status = st
+            Department = de
+        End Sub
+        Public Sub New()
+            MyBase.New()
+        End Sub
+        Public Overrides Sub PrintLunchCost()
+            Console.WriteLine("Lunch cost: " & Salary / 120)
+        End Sub
+    End Class
+    Sub main()
+        Dim t3 As New Teacher(6, "Ms", "Sita", "Stering", 20000, "G1", 12)
+        Dim ss3 As New SUP_STAFF(6, "Ms", "Jane", "Smith", 30000, "PT", "Physics")
+        t3.printProperties()
+        t3.PrintLunchCost()
+        ss3.printProperties()
+        ss3.PrintLunchCost()
+        Console.ReadKey()
+    End Sub
+End Module

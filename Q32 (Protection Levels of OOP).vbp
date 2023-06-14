@@ -1,0 +1,24 @@
+Module Module1
+    Class A
+        Public x As Integer
+        Protected y As Integer
+        Private z As Integer
+        Public Overridable Sub print()
+            Console.WriteLine(x & y & z)
+        End Sub
+        Public Function GetZ()
+            Return z
+        End Function
+        End Function
+    End Class
+    Public Class B : Inherits A
+        Public Overrides Sub print()
+            Console.WriteLine(x & y & GetZ())
+        End Sub
+    End Class
+    Sub Main()
+        Dim obj As New B
+        Console.WriteLine(obj.x & obj.y & obj.z)
+    End Sub
+
+End Module

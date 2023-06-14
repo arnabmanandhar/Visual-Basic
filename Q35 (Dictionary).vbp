@@ -1,0 +1,103 @@
+Module Module1
+    Dim dict(20, 2) As String
+    Sub Main()
+        Dim choice, addr As Integer
+        Call Initialize()
+        Do
+            choice = Menu()
+            If choice = 1 Then
+                Call addnew()
+            ElseIf choice = 2 Then
+                Console.Write("Enter keyword to delete: ")
+                Call delete(Trim(Console.ReadLine))
+            ElseIf choice = 3 Then
+                Console.Write("Enter keyword to search: ")
+                addr = lookup(Trim(Console.ReadLine))
+                If addr = -1 Then
+                    Console.WriteLine("Keyword not found.")
+                Else
+                    Console.WriteLine("Meaning : " & dict(addr, 2))
+                End If
+            End If
+        Loop Until choice = 5
+    End Sub
+    Sub Initialize()
+        For x = 1 To 20
+            For y = 1 To 2
+                dict(x, y) = "**"
+            Next
+        Next
+    End Sub
+    Function hash(key As String) As Integer
+        Dim addr As Integer = 0
+        key = UCase(Trim(key))
+        For x = 1 To Len(key)
+            addr = addr + Asc(Mid(key, x, 1))
+        Next
+        Return (addr Mod 20) + 1
+    End Function
+    '   Function 
+    '      Dim og addr , nu addr
+    '     For x = 1 To Len()
+    '        pg addr = og addr + asc mid key
+    '   Next
+    '  og addr = ogaddr Mod 20 + 1
+    ' If AppDomainManagerInitializationOptions Then 'opt = 1 Then
+    '    tmp = "**"
+    '     Else
+    '        tmp_leu = UCase(key)
+    '   End If
+    '  nu_addr = og_addr
+    ' Do
+    ''    Nullable addr = nu addr + 1
+    '  If Nullable addr = 21 then nu addr = 1
+    '     If Nullable addr = og addr then return -1
+    '    End If
+    'Loop
+    Function resolve(og_addr As Integer) As Integer
+        Dim nu_addr As Integer = og_addr + 1
+        Do
+            If dict(nu_addr, 1) = "**" Then
+                Return nu_addr
+            Else
+                nu_addr = nu_addr + 1
+                If nu_addr = 21 Then nu_addr = 1
+                If nu_addr = og_addr Then Return -1
+            End If
+        Loop
+    End Function
+    Function Menu() As Integer
+        Dim choice As Integer
+        Console.WriteLine(vbNewLine & "*** The Dictionary Yabba Dabba Doo Dun Dun Dun!!! ***")
+        Console.WriteLine("Enter your choice: ")
+        Console.WriteLine("1) Add new definition")
+        Console.WriteLine("2) Delete a previously existing definition")
+        Console.WriteLine("3) Search for a definition")
+        Console.WriteLine("4) Display the entire contents of the dictionary")
+        Console.WriteLine("5) Exit the dictionary program")
+        Console.Write("Enter your goddamn choice here: ")
+        choice = Console.ReadLine
+        Return choice
+    End Function
+    Sub addnew()
+        Dim word, meaning As String
+        Dim addr As Integer
+        Console.Write("Enter Key word: ")
+        word = Console.ReadLine()
+        Console.Write("Enter meaning : ")
+        meaning = Console.ReadLine()
+    End Sub
+    Function lookup(key As String)
+        Do
+
+        Loop
+    End Function
+    Sub delete(key As String)
+        Dim addr As Integer
+        addr = lookup(key)
+
+    End Sub
+    Sub print()
+        ' console.writeline {0} {1} {2} , x , dict x 1 , dict x 2 ' brilliant sir!
+    End Sub
+End Module

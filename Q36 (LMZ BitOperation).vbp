@@ -1,0 +1,22 @@
+Module Module1
+
+    Sub Main()
+        Dim x, y, z As Byte
+        x = 52
+        y = 109
+        z = x And y
+        Console.WriteLine(z)
+        Console.WriteLine(x Or y)
+        Console.WriteLine(x Xor y)
+        Console.WriteLine(Not x)
+        Console.WriteLine(x << 2)
+        Console.WriteLine(x >> 2)
+        If x And y = 36 Then
+            Console.WriteLine("Yes.")
+        Else
+            Console.WriteLine("No.")
+        End If
+        Console.ReadKey()
+    End Sub
+
+End Module

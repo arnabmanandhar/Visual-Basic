@@ -1,0 +1,21 @@
+Module Module1
+
+    Sub Main()
+        Dim x, y() As Integer
+        Dim c As String
+        Do
+            c = Console.ReadLine
+            If Not IsNumeric(c) Then Console.WriteLine("Not a number")
+        Loop Until IsNumeric(c)
+        x = c
+       ReDim y(x)
+        For x = 1 To 5
+            y(x) = x
+        Next
+        For x = 1 To 5
+            Console.WriteLine(y(x))
+        Next
+        Console.ReadKey()
+    End Sub
+
+End Module

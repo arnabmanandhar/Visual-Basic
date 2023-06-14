@@ -1,0 +1,38 @@
+Module Module1
+    Dim TOS As Integer = 0
+    Dim Stack(5) As Integer
+    Sub Main()
+        For x = 1 To 6
+            Console.WriteLine("Push : " & x)
+            Call push(x)
+            Call Print()
+        Next
+        For x = 1 To 6
+            Console.WriteLine("Pop : " & x)
+            Call pop()
+            Call print()
+        Next
+        Console.ReadKey()
+    End Sub
+    Sub push(newData As Integer)
+        If TOS = 5 Then
+            Console.WriteLine("Stack is full.")
+        Else
+            TOS = TOS + 1
+            Stack(newData) = newData
+        End If
+    End Sub
+    Sub pop()
+        If TOS = 0 Then
+            Console.WriteLine("Stack is empty.")
+        Else
+            TOS = TOS - 1
+            Console.WriteLine(Stack(TOS))
+        End If
+    End Sub
+    Sub print()
+        For x = TOS To 1 Step -1
+            Console.WriteLine(" " & Stack(x))
+        Next
+    End Sub
+End Module

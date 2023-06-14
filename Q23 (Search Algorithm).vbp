@@ -1,0 +1,67 @@
+Module Module1
+    Dim mylist(20) As Integer
+    Sub Main()
+        Call createlist()
+        Console.WriteLine("List  : " & printlist())
+        Call printlist()
+        Call insertionSort()
+        Console.WriteLine("Sorted : " & printlist())
+        Call SearchList(mylist)
+        Console.ReadKey()
+    End Sub
+    Sub createlist()
+        Dim r As New Random
+        For x = 1 To 20
+            mylist(x) = r.Next(1, 101)
+        Next
+    End Sub
+    Function printlist() As String
+        Dim s As String = ""
+        For x = 1 To 20
+            s = s & mylist(x) & " "
+        Next
+        Return s
+    End Function
+    Sub insertionSort()
+        Dim temp, pass, comp As Integer
+        For pass = 2 To 20
+            temp = mylist(pass)
+            comp = pass - 1
+            While mylist(comp) > temp And comp > 0
+                mylist(comp + 1) = mylist(comp)
+                comp = comp - 1
+            End While
+            mylist(comp + 1) = temp
+            Console.WriteLine("Pass {0} : {1}", pass - 1, printlist())
+        Next
+    End Sub
+    Sub SearchList(myList() As Integer)
+        Dim LStart, LEnd, LMid, Trigger, SData As Integer
+        LStart = 1
+        LEnd = 20
+        Trigger = 0
+        Console.WriteLine("Which number do you wish to search for?")
+        SData = Console.ReadLine
+        Do
+            LMid = (LStart + LEnd) \ 2
+            If myList(LMid) = SData Then
+                Console.WriteLine(SData & " value found at position:- " & LMid)
+                Trigger = Trigger + 1
+            ElseIf SData < myList(LMid) Then
+                LEnd = LMid - 1
+            Else
+                LStart = LMid + 1
+            End If
+            If Trigger = 1 Then
+                If myList(LMid + 1) = myList(LMid) Then
+                    Console.WriteLine(SData & " value found at position:- " & LMid + 1)
+                ElseIf myList(LMid - 1) = myList(LMid) Then
+                    Console.WriteLine(SData & " value found at position:- " & LMid - 1)
+                End If
+            End If
+        Loop Until LStart > LEnd Or Trigger > 0
+        If Trigger = False Then
+            Console.WriteLine("Data value not found. *Associateed with the sound of one hand clapping*")
+        End If
+    End Sub
+End Module

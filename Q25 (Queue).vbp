@@ -1,0 +1,56 @@
+Module Module1
+    Dim HP, TP As Integer
+    Dim myQueue(6) As String
+    Sub Main()
+        Call initializeQ()
+        For x = 1 To 6
+            Call enQ(Chr(x + 64))
+            Call printQ()
+        Next
+        For x = 1 To 6
+            Call deQ()
+            Call printQ()
+        Next
+        Console.WriteLine("The array:")
+        For x = 1 To 6
+            Console.Write(myQueue(x) & " ")
+        Next
+        Console.ReadKey()
+    End Sub
+    Sub initializeQ()
+        For x = 1 To 6
+            myQueue(x) = ""
+        Next
+        HP = 0
+        TP = 0
+    End Sub
+    Sub enQ(newItem As String)
+        If TP = 6 Then
+            Console.WriteLine("Q is full, son.")
+        Else
+            Console.WriteLine("Enqueued : " & newItem)
+            TP = TP + 1
+            myQueue(TP) = newItem
+            If HP = 0 Then HP = TP
+        End If
+    End Sub
+    Sub deQ()
+        If HP = 0 Then
+            Console.WriteLine("Q is empty, son.")
+        Else
+            Console.WriteLine("Dequeued : " & myQueue(HP))
+            HP = HP + 1
+            If HP > TP Then
+                HP = 0
+                TP = 0
+            End If
+        End If
+    End Sub
+    Sub printQ()
+        Console.Write("HEAD => ")
+        For x = HP To TP
+            Console.Write(" " & myQueue(x))
+        Next
+        Console.WriteLine(" <= Tail")
+    End Sub
+End Module

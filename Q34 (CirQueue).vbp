@@ -1,0 +1,103 @@
+Public Class QUEUE 'declaring the class; constructor
+    Private HP, TP, max As Integer
+    Private myQ() As String
+    Public Sub New(numItems As Integer)
+        max = numItems
+        ReDim myQ(max)
+        For x = 1 To max 'initializing the queue
+            myQ(x) = ""
+        Next
+        HP = 0
+        TP = 0
+    End Sub
+    Public Sub EnQ(newItem As String)
+        Dim nextPos As Integer = (TP Mod max) + 1
+            TP = nextPos
+            myQ(TP) = newItem
+            Console.WriteLine(newItem & "has been added to the queue.")
+            If HP = 0 Then HP = TP
+    End Sub
+    Public Sub DeQ()
+            Console.WriteLine(myQ(HP) & "has been removed from the queue.")
+            myQ(HP) = ""
+            If HP = TP Then
+                HP = 0
+                TP = 0
+            Else
+                HP = (HP Mod max) + 1
+            End If
+    End Sub
+    Public Function SearchQ(sItem As String) As Boolean
+        Dim pos As Integer
+        pos = HP
+        Do
+            If myQ(pos) = sItem Then Return True
+                pos = (pos Mod max) + 1
+        Loop Until pos = (TP Mod max) + 1
+        Return False
+    End Function
+    Public Sub PrintQ()
+        Dim pos As Integer
+        Console.Write("Queue : ")
+        If HP = 0 Then
+            Console.Writeline("Queue is empty.")
+        ElseIf HP = pos Then
+            Console.writeline("Queue is full.")
+        End If
+    End Sub
+    Public Function ShowMenu() As Integer
+        Console.WriteLine("1.Enqueue 2. Dequeue 3. Search")
+        Return Console.ReadLine()
+    End Function
+    Public Function isEmpty() As Boolean
+        If HP = 0 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    Public Function isFull() As Boolean
+        If HP = (TP Mod max) + 1 Then
+            Return True
+        Else : Return False
+        End If
+    End Function
+End Class
+Module Module1
+    Sub Main()
+        Dim q1 As QUEUE
+        Dim opt As Integer
+        Console.Write("What size queue do you want?")
+        q1 = New QUEUE(Console.ReadLine())
+        Do
+            opt = q1.ShowMenu()
+            If opt = 1 Then
+                If Not q1.isFull Then
+                    Console.Write("Enter name to enqueue: ")
+                    q1.EnQ(Console.ReadLine())
+                Else
+                    Console.WriteLine("Q is full. Can't enQ")
+                End If
+            ElseIf opt = 2 Then
+                If Not q1.isEmpty Then
+                    q1.DeQ()
+                Else
+                    Console.WriteLine("Q is empty. Can't deQ")
+                End If
+            ElseIf opt = 3 Then
+                If q1.isEmpty Then
+                    Console.WriteLine("Q is empty.")
+                Else
+                    Console.Write("Enter the item that you want to search for : ")
+                    If q1.SearchQ(Console.ReadLine()) = False Then
+                        Console.WriteLine("Item doesn't exist.")
+                    Else
+                        Console.WriteLine("Item exists.")
+                    End If
+                End If
+                End If
+                q1.PrintQ()
+                Console.Write("Another operation? (y/n) : ")
+        Loop Until (UCase(Console.ReadLine()) = "N")
+    End Sub
+End Module

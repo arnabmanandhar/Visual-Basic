@@ -1,0 +1,64 @@
+Module Module1
+    Dim Threatre(10, 15) As Boolean
+    Sub Main()
+        Dim numTkt As Integer
+        Call fillArray()
+        Do
+            Console.Clear()
+            Call printArray()
+            Console.Write("How many seats would u like, sire? : ") 'asking for seats , seats are important yo!
+            numTkt = Console.ReadLine
+            Call checkSeats(numTkt)
+            Console.Write("Press enter to try again, sire." & vbNewLine & "Press 'y' to quit. Save power and electricity! Save lives! :")
+        Loop Until UCase(Console.ReadLine()) = "Y"
+                Console.ReadKey()
+    End Sub
+    Sub fillArray()
+        Dim r As New Random 'Praise RNGesus! Hear! Hear!
+        For row = 1 To 10
+            For col = 1 To 15
+                Threatre(row, col) = CBool(r.Next(0, 2)) 'Assigning values
+            Next
+        Next
+    End Sub
+    Sub printArray()
+        Console.Write("  ") 'printing the layout of the threatre , very nasty work
+        For col = 1 To 9
+            Console.Write(" {0} ", col)
+        Next
+        For col = 10 To 15
+            Console.Write(" {0}", col)
+        Next
+        Console.WriteLine()
+        For row = 1 To 10
+            Console.Write(Chr(row + 64) & " ") 'converts row's number into ASCII equivalent then into String i.e; row = 1 + 64 = 65 = A 
+            For col = 1 To 15
+                Console.Write(" {0} ", Left(CStr(Threatre(row, col)), 1)) 'takes the value of the Boolean TRUE or FALSE, takes the first letter from left i.e. T or F and prints it in the table
+            Next
+            Console.WriteLine()
+        Next
+    End Sub
+    Sub checkSeats(numTkt As Integer)
+        Dim found As Boolean = False
+        If numTkt < 1 Or numTkt > 15 Then
+            Console.WriteLine("invalid number of tickets. Fix yo logic and do not divide by zero.")
+        Else
+            For row = 1 To 10
+                For col = 1 To 16 - numTkt
+                    If Threatre(row, col) = False Then 'locates first empty seat
+                        found = True
+                        For x = 1 To numTkt - 1 'looks for more empty seats in coordination with the last found empty seats
+                            If Threatre(row, col + x) = True Then found = False
+                        Next
+                        If found Then 'prints the suggestion after accumulating all the results , robotz rulz!
+                            Console.WriteLine("The best seats in mah house are {0}{1} to {0}{2}", Chr(row + 64), col, col + numTkt - 1) 'the output
+                            Exit For
+                        End If
+                    End If
+                Next
+        If found Then Exit For
+Next
+            If Not found Then Console.WriteLine("No good suggestions sire. Is this some sort of a peasant joke I'm too rich to understand?") 'backup plan if all else fails
+        End if
+    End Sub
+End Module

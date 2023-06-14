@@ -1,0 +1,24 @@
+Module Module1
+
+    Sub Main()
+        Dim a, b, c As Integer
+        a = 6
+        b = 7
+        Call add(a, b, c)
+        Console.WriteLine("The addition is " & c & ".")
+        Call product(a, b, c)
+        Console.WriteLine("The product is " & c & ".")
+        Call power(a, b, c)
+        Console.WriteLine("The power is " & c & ".")
+        Console.ReadKey()
+    End Sub
+    Sub add(ByRef a As Integer, ByRef b As Integer, ByRef c As Integer)
+        c = a + b
+    End Sub
+    Sub product(ByRef a As Integer, ByRef b As Integer, ByRef c As Integer)
+        c = a * b
+    End Sub
+    Sub power(ByRef a As Integer, ByRef b As Integer, ByRef c As Integer)
+        c = a ^ b
+    End Sub
+End Module

@@ -1,0 +1,73 @@
+Module Module1
+    Dim Island As Islandclass
+    Class Islandclass
+        Public Grid(9, 29) As Char
+        Public Sub New(ByVal r As Integer, ByVal c As Integer)
+            For r = 0 To 9
+                Const sand As Char = "."
+                For c = 0 To 29
+                    Grid(r, c) = sand
+                    Grid(r, c) = sand
+                Next
+            Next
+        End Sub
+        Public Sub DisplayGrid()
+            Dim r, c As Integer
+            Console.Write("   ")
+            For r = 0 To 9
+                For c = 0 To 29
+                    While r = 0
+                        Console.Write("{0} ", c)
+                    End While
+                    While c = 0
+                        Console.Write("{0} ", r)
+                    End While
+                    Console.Write(Grid(r, c) & " ")
+                Next
+            Next
+        End Sub
+        Public Sub HideTreasue()
+            Dim r, c As Integer
+            For I = 1 To 3
+                r = Rnd(10)
+                c = Rnd(30)
+                If Grid(r, c) <> "T" Then
+                    Grid(r, c) = "T"
+                    I = I + 1
+                End If
+            Next
+        End Sub
+        Public Sub StartDig(ByRef Count)
+            Dim r, c As Integer
+            Console.WriteLine("Which row would u like to dig for the treasure? ")
+            r = Console.ReadLine
+            Console.WriteLine("Which row would u like to dig for the treasure? ")
+            c = Console.ReadLine
+            If Grid(r, c) <> "." Or r < 0 Or r > 9 Or c < 0 Or c > 29 Then
+                Console.WriteLine("Invalid parameters. Try again.")
+            Else
+                If Grid(r, c) = "T" Then
+                    Grid(r, c) = "X"
+                    Count = Count + 1
+                Else
+                    Grid(r, c) = "O"
+                End If
+            End If
+            Console.WriteLine("Enter a key to continue.")
+            Console.ReadLine()
+        End Sub
+    End Class
+    Sub Main()
+        Island = New Islandclass(9, 29)
+        Dim Count As Integer
+        Count = 0
+        Do
+            Console.Clear()
+            Console.WriteLine("---------------Treasure Island---------------")
+            Call Island.DisplayGrid()
+            Call Island.StartDig(Count)
+        Loop Until Count = 3
+        Console.WriteLine("Congratulations! You've won!")
+        Console.ReadKey()
+    End Sub
+End Module

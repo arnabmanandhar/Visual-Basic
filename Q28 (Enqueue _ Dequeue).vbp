@@ -1,0 +1,90 @@
+Module Module1
+    Dim queue(10) As String
+    Dim front, rear As String
+    Sub initializequeue()
+        For i = 1 To 10
+            queue(i) = ""
+        Next
+        front = 0
+        rear = 0
+    End Sub
+    Sub enqueue(ByVal sname As String)
+        If (front = 1 And rear = 10) Or (front = rear + 1) Then
+            Console.WriteLine("unable to add item to queue.Queue is already full!")
+        Else
+            If front = 0 Then
+                front = 1
+                rear = 1
+            Else
+                If rear = 10 Then
+                    rear = 1
+                Else
+                    rear = rear + 1
+                End If
+            End If
+            queue(rear) = sname
+        End If
+    End Sub
+    Sub dequeue()
+        If front = 0 Then
+            Console.WriteLine("unable to delete the item. Queue is empty!")
+        Else
+            queue(front) = ""
+            If front = rear Then
+                front = 0
+                rear = 0
+            Else
+                If front = 10 Then
+                    front = 1
+                Else
+                    front = front + 1
+                End If
+            End If
+        End If
+    End Sub
+    Sub printall()
+        Console.WriteLine()
+        Dim strmsg As String
+        For i = 1 To 10
+            If i = front Then
+                strmsg = "->top of queue"
+            ElseIf i = rear Then
+                strmsg = "'>end of queue"
+            Else
+                strmsg = ""
+            End If
+            Console.WriteLine(queue(i) & strmsg)
+        Next
+    End Sub
+    Sub Main()
+        Dim choice As Integer
+        Call initializequeue()
+        Do
+            Console.WriteLine("*************************")
+            Console.WriteLine("******queue example******")
+            Console.WriteLine("*************************")
+            Console.WriteLine("1. Enqueue")
+            Console.WriteLine("2.dequeue")
+            Console.WriteLine("3. view all")
+            Console.WriteLine("4. EXIT")
+            Console.WriteLine("*****")
+            Console.Write("enter choice: ")
+
+            choice = Console.ReadLine
+            Select Case choice
+                Case 1
+                    Dim strname As String
+                    Console.Write("enter name to add item to the queue:")
+                    strname = Console.ReadLine
+                    Call enqueue(strname)
+                Case 2
+                    Call dequeue()
+                Case 3
+                    Call printall()
+                Case 4
+                Case Else
+                    Console.WriteLine("invalid choice. please try again !")
+            End Select
+        Loop Until choice = 4
+    End Sub
+End Module

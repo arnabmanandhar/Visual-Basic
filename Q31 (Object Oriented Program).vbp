@@ -1,0 +1,96 @@
+Module Module1
+    Class Staff
+        Private SID As Integer
+        Private Title, fName, lName As String
+        Private Salary As Single
+        Public Sub New() 'constructors, plus this is a null constructor
+        End Sub
+        Public Sub New(SID As Integer, Salary As Single)
+            Me.SID = SID 'me is a qualifier which tells the program where the SID is from because multiple SIDs -(class staff in this case)
+            Me.Salary = Salary
+        End Sub
+        Public Sub New(id As Integer, tt As String, fn As String,
+                       ln As String, sal As Single)
+            SID = id 'no multiple SIDs so no confusion for the program
+            Title = tt
+            fName = fn
+            lName = ln
+            Salary = sal
+        End Sub
+        Public Overridable Sub printProperties() 'because there's more than 1 printProperties
+            Console.WriteLine("----------------------------------------")
+            Console.WriteLine("ID:{0}", SID)
+            Console.WriteLine("Name: {0} {1} {2}", Title, fName, lName)
+            Console.WriteLine("Salary: {0}", Salary)
+                  End Sub
+        Public Function getSalary() As Single
+            Return Salary
+        End Function
+        Public Sub setSalary(sal As Single)
+            Salary = sal
+        End Sub
+    End Class
+    Public Class Teacher
+        Inherits Staff
+        Private Classroom As String
+        Private FormGroup As Integer
+    Public Sub New()
+        End Sub
+        Public Sub New(id, tt, fn, ln, sal, cr, fg)
+            MyBase.New(id, tt, fn, ln, sal) 'myBase. prints properties from the inherited parent constructor
+            Classroom = cr
+            FormGroup = fg
+        End Sub
+        Public Overrides Sub printProperties() 'the other printProperties
+            MyBase.printProperties()
+            Console.WriteLine("Classroom:{0}", Classroom)
+            Console.WriteLine("Form Group: {0}", FormGroup)
+        End Sub
+    End Class
+    Public Class Sup_Staff
+        Inherits Staff
+        Private Job As String
+        Public Sub New()
+        End Sub
+        Public Sub New(id, tt, fn, ln, sal, jb)
+            MyBase.New(id, tt, fn, ln, sal)
+            Job = jb
+        End Sub
+        Public Overrides Sub printProperties() 'third printProperties
+            MyBase.printProperties()
+            Console.WriteLine("Job:{0}", Job)
+        End Sub
+    End Class
+    'Sub Main()
+    '2 Dim s1 As New Staff() 'declaration/Instantation
+    '2 Dim s2 As New Staff(2, 5000) 'declaration/Instantation
+    '2 Dim s3 As Staff 'declared
+    '2 s3 = New Staff(3, "Mr", "Ram", "Sharma", 10000) 'instantiation/ Initialization (declaration and instantation done seperately
+    'helpful when u don't know the parameters)
+    'this part of the program has now been set aside
+    ' s1.printProperties()
+    's2.printProperties()
+    's3.printProperties()
+    's1 = New Staff(1, 4000) 'constructors that have been called before can be called again
+    's1.printProperties()
+    '2 s3 = New Staff(3, "Mr", "Ran", "Sharma", 10000) 'original salary
+    '2 s3.printProperties()
+    '2  s3.setSalary(s3.getSalary + s3.getSalary * 0.05) 'new salary set by using set salary and/or just put salary by putting number in bracket
+    '2  s3.printProperties()
+    's3.setSalary = 6000 -doesn't work as Salary is Private but will if it is Public
+    '2  Console.ReadKey()
+    'End Sub
+
+    '3Sub main()
+    '3 Dim t3 = New Teacher(3, "Mr", "Ram", "Sharma", 10000, "s6", 15)
+    '3     t3.printProperties()
+    '3  Dim t1 As New Teacher
+    '3     t1.printProperties()
+    '3    Console.ReadKey()
+    '3 End Sub
+    Sub main()
+        Dim ss1 = New Sup_Staff(4, "Mrs", "Erika", "Goiebbs", 500, "Part-Time")
+        ss1.printProperties()
+        Console.ReadKey()
+    End Sub
+End Module

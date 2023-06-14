@@ -1,0 +1,104 @@
+Module Module1
+    Structure student
+        Dim rol As Integer
+        Dim sname As String
+        Dim clas As Integer
+    End Structure
+    Dim myfile As String = "D:\Biki Nath Newa\myfile"
+    Dim max As Integer = 10 'max no. of records in file
+    Sub Main()
+        Dim temp As student
+        Dim key As String
+        If Not IO.File.Exists(myfile) Then Call initialize()
+        For x = 1 To 5
+            'Console.WriteLine("Enter roll, name and class:- ")
+            'temp.rol = Console.ReadLine
+            'temp.sname = Console.ReadLine()
+            'temp.clas = Console.ReadLine()
+            'Call addRecord(temp)
+            'Call printFile()
+            Console.Write("Write name to find:-")
+            key = Console.ReadLine
+            Call search(key)
+        Next
+        Console.ReadKey()
+    End Sub
+    Sub initialize()
+        Dim dummy As student
+        dummy.rol = 0
+        dummy.sname = "***"
+        dummy.clas = 0
+        FileOpen(1, myfile, OpenMode.Random)
+        For x = 1 To Max
+            FilePut(1, dummy, x)
+        Next
+        FileClose(1)
+    End Sub
+    Sub printFile()
+        Dim temp As student
+        Console.WriteLine("File contents:" & vbNewLine & "****************")
+        Dim dummy As student
+        FileOpen(1, myfile, OpenMode.Random)
+        For x = 1 To Max
+            FileGet(1, temp, x)
+            Console.WriteLine("{0}. {1},{2},{3}", x, temp.rol, temp.sname, temp.clas)
+        Next
+        Console.WriteLine("****************")
+        FileClose(1)
+    End Sub
+    Function hash(key As String)
+        Dim sum As Integer
+        key = UCase(Trim(key))
+        For X = 1 To Len(key)
+            sum = sum + Asc(Mid(key, X, 1))
+        Next
+        Return (sum Mod max) + 1
+    End Function
+    Sub addRecord(newStu As student)
+        Dim temp As student
+        Dim hashAdr, curAdr As Integer
+        Dim done, full As Boolean
+        hashAdr = hash(newStu.sname)
+        curAdr = hashAdr
+        FileOpen(1, myfile, OpenMode.Random)
+        Do
+            FileGet(1, temp, curAdr)
+            If temp.sname = "***" Then
+                FilePut(1, newStu, curAdr)
+                Done = True
+                Console.WriteLine("Record added successfully.")
+            Else
+                curAdr = curAdr + 1
+                If curAdr > max Then curAdr = 1
+                If curAdr = hashAdr Then
+                    full = True
+                    Console.WriteLine("The file is full. Cannot add. Error 303, Error 404 , Error 303 not found.")
+                End If
+            End If
+        Loop Until done = True Or full = True
+        FileClose(1)
+    End Sub
+    Sub search(key As String)
+        Dim temp As student
+        Dim hashAdr, curAdr As Integer
+        Dim done, found As Boolean
+        hashAdr = hash(key)
+        curAdr = hashAdr
+        FileOpen(1, myfile, OpenMode.Random)
+        Do
+            FileGet(1, temp, curAdr)
+            If temp.sname = key Then
+                found = True
+                Console.WriteLine("Record found. Printing." & vbNewLine & "{0},{1},{2}", temp.rol, temp.sname, temp.clas)
+            Else
+                curAdr = curAdr + 1
+                If curAdr > max Then curAdr = 1
+                If curAdr = hashAdr Then
+                    done = True
+                    Console.WriteLine("Not found")
+                End If
+            End If
+        Loop Until found = True Or done = True
+        FileClose(1)
+    End Sub
+End Module

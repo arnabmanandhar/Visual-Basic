@@ -1,0 +1,120 @@
+Module Module1
+    Dim myfile As String = "D:\Biki Nath Newa\Coding\Q38.txt"
+    Dim tempfile As String = ""
+    Sub Main()
+        Dim choice As Integer
+        Call read2array22()
+        Call Printarray()
+        Do
+            choice = menu()
+            If choice = 1 Then
+                Call addbook()
+            ElseIf choice = 2 Then
+                Call searchbook()
+            ElseIf choice = 3 Then
+                Call deletebook()
+            ElseIf choice = 4 Then
+                End
+            Else
+            End If
+        Loop Until choice = 4
+        Console.ReadKey()
+        Console.Clear()
+    End Sub
+    Function menu()
+        Dim choice As Integer
+        choice = 0
+        Do
+            Console.WriteLine("Main Menu - Shhhhh this isn't a game, its a library")
+            Console.WriteLine("Enter your choice. What are the choices? Heed my words and consider the following-")
+            Console.WriteLine("1 - Add a book; how generous." & vbNewLine & "2 - Search for a book; I'm getting too old for this." & vbNewLine & "3 - Delete a book; *gasp* How dare you! Fools, idiots, bastards all of them." & vbNewLine & "4 - Exit the library; Yeah you better run before I cap ur sissy knees.")
+            Console.Write("Now, what will your choice be? - ")
+            choice = Console.ReadLine
+        Loop Until choice <> 0 And choice < 5
+        Console.Clear()
+    End Function
+    Function read2array22()
+        Dim fr As IO.StreamReader
+        Dim bkid, title, author, puyr, bkrcrd As String
+        Dim hpos(3), hdcount, bkcnt As Integer
+    End Function
+    Function read2array1()
+        Dim fr As IO.StreamReader
+        Dim bookrecoird, id, tuts, auther, pubyr As String
+        Dim hpos(3), hnum, bookcount As Integer
+        fr = IO.File.OpenText(myfile)
+     
+
+    End Function
+
+    Function addbook()
+
+    End Function
+    Function searchbook()
+
+    End Function
+    Function printarray()
+        Dim books(10, 10) As String
+        For x = 1 To 15
+            If books(x, 1) <> "" Then
+                Console.WriteLine("{0},{1}.{2},{3}", books(x, 1), books(x, 2), books(x, 3), books(x, 4))
+            End If
+        Next
+    End Function
+    Function deletebook()
+        Dim brec, searchid, bookid As String
+        Dim title, author, pubyr, bookrecord As String
+        Dim books(10, 10)
+        Dim fr As IO.StreamReader, fw As IO.StreamWriter
+        Console.Write("Endter book's id:")
+        bookid = UCase(Trim(Console.ReadLine()))
+        fr = IO.File.OpenText(myfile)
+        fw = IO.File.CreateText(tempfile)
+           while not fr.EndOfStream  
+            brec = fr.ReadLine
+            For pos = 1 To Len(brec)
+                If Mid(brec, pos, 1) = "#" Then
+                    bookid = Left(brec, pos - 1)
+                    If bookid <> searchid Then fw.WriteLine(brec)
+                End If
+            Next
+        End While
+        fr.Close()
+        fw.Close()
+    End Function
+    Sub read2array3()
+        Dim books(10, 10) As String
+        Dim fr As IO.StreamReader
+        Dim brec As String
+        Dim bnum, part As Integer
+        Dim lastpart As Integer = 4
+        fr = IO.File.OpenText(myfile)
+        bnum = 0
+        While Not fr.EndOfStream
+            bnum += 1
+            brec = fr.ReadLine
+            part = 0
+            For pos = 1 To Len(brec)
+                If Mid(brec, pos, 1) = "#" Then
+                    part += 1
+                    books(bnum, part) = Left(brec, pos - 1)
+                    brec = Right(brec, Len(brec) - pos)
+                    pos = 0
+                End If
+            Next
+            books(bnum, lastpart) = brec
+            fr.Close()
+        End While
+    End Sub
+    Sub sort()
+        Call read2array3()
+
+        Call array2file()
+
+    End Sub
+    Sub array2file()
+
+    End Sub
+
+End Module
+

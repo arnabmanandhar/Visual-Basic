@@ -1,0 +1,44 @@
+Module Module1
+    Dim mylist(20) As Integer
+    Sub Main()
+        Call createlist()
+        Console.WriteLine("List  : " & printlist())
+        Call printlist()
+        Call insertionSort()
+        Console.WriteLine("Sorted : " & printlist())
+        Console.ReadKey()
+    End Sub
+    Sub createlist()
+        Dim r As New Random
+        Dim n, t As Integer
+        For x = 1 To 20
+            mylist(x) = x
+        Next
+        For x = 1 To 20
+            n = r.Next(1, 21)
+            t = mylist(x)
+            mylist(x) = mylist(n)
+            mylist(n) = t
+        Next
+    End Sub
+    Function printlist() As String
+        Dim s As String = ""
+        For x = 1 To 20
+            s = s & mylist(x) & " "
+        Next
+        Return s
+    End Function
+    Sub insertionSort()
+        Dim temp, pass, comp As Integer
+        For pass = 2 To 20
+            temp = mylist(pass)
+            comp = pass - 1
+            While mylist(comp) > temp And comp > 0
+                mylist(comp + 1) = mylist(comp)
+                comp = comp - 1
+            End While
+            mylist(comp + 1) = temp
+            Console.WriteLine("Pass {0} : {1}", pass - 1, printlist())
+        Next
+    End Sub
+End Module

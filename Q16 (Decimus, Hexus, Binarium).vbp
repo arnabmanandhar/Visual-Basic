@@ -1,0 +1,92 @@
+Module Module1
+
+    Sub Main()
+        Dim Choice As String
+        Do
+            Call DisplayMenu()
+            Do
+                Console.WriteLine("Enter thee choice mortal!")
+                Choice = Console.ReadLine
+                If Choice <> "1" And Choice <> "2" And Choice <> "3" And Choice <> "4" Then
+                    Console.Clear()
+                    Call DisplayMenu()
+                    Console.WriteLine("Fool! T'is not a reply. Try again." & vbNewLine)
+                End If
+            Loop Until Choice = "1" Or Choice = "2" Or Choice = "3" Or Choice = "4"
+            Select Case Choice
+                Case "1" : Call Binarium()
+                Case "2" : Call Decimus()
+                Case "3" : Call Hexus()
+                Case "4" : End
+            End Select
+        Loop Until Choice = 3
+    End Sub
+    Sub DisplayMenu()
+        Console.WriteLine("-The Convertreon-")
+        Console.WriteLine("-----------------")
+        Console.WriteLine("You have the following thrice options mortal. Choose wisely.")
+        Console.WriteLine("1) Visit the house of Binarium. (Dec2Bin)")
+        Console.WriteLine("2) Visit the house of Decimus. (Bin2Dec)")
+        Console.WriteLine("3) Hush thy forked tongue mortal and go home!" & vbNewLine)
+    End Sub
+    Sub Binarium()
+        Dim input As Integer
+        Dim output As String = ""
+        Console.Clear()
+        Console.WriteLine("Welcome to the house of Binarium." & vbNewLine & "where we convert tongue of Decimus into Binarium.")
+        Console.WriteLine("What is the mortal's bidding? Hush! He's speaking.")
+        input = Console.ReadLine
+        Do
+            output = (input Mod 2) & output
+            input = input \ 2
+        Loop Until input = 0
+        Console.WriteLine("Here is thee answer:- " & output & vbNewLine & "Hit any key of this so called object of yours called keyboard" & vbNewLine & "And return to the Convertreon")
+        Console.ReadKey()
+        Console.Clear()
+    End Sub
+    Sub Decimus()
+        Dim input As Integer
+        Dim process As Integer
+        Dim output As Integer
+        Dim I As Integer
+        I = 0
+        Console.Clear()
+        Console.WriteLine("Welcome to the house of Decimus." & vbNewLine & "where we convert tongue of Binarium into Decimus.")
+            Console.WriteLine("What is the mortal's bidding? Hush! He's speaking.")
+        input = Console.ReadLine
+        Do
+            process = input Mod 10
+            input = input \ 10
+            output = (process * (2 ^ I)) + output
+            I = I + 1
+        Loop Until input = 0
+        Console.WriteLine("Here is thee answer:- " & output & vbNewLine & "Hit any key of this so called object of yours called keyboard" & vbNewLine & "And return to the Convertreon")
+        Console.ReadKey()
+        Console.Clear()
+    End Sub
+    Sub hexus()
+        Dim choice As String
+        Dim hell As Boolean
+        Dim input As String
+        Dim process As Integer
+        Dim output As Integer
+        Dim I As Integer
+        I = 0
+        Console.Clear()
+        Console.WriteLine("Welcome to the house of Hexus where you have to make a decision." & vbNewLine & "To convert tongue of Binarium into Hexus or to convert tongue of Decimus into Hexus.")
+        Do
+            hell = False
+            Console.WriteLine("What is the mortal's decision? Speak!! Binarium or Decimus??")
+            choice = Console.ReadLine
+            If UCase(choice) = "Binarium" Then
+                Console.WriteLine("Good choice. Now tell me a Binarium word.")
+                input = Console.ReadLine
+                'bloody incomplete
+            ElseIf UCase(choice) = "Decimus" Then
+            Else
+                Console.WriteLine("T'was not what I asked fool!")
+                hell = True
+            End If
+        Loop Until hell = False
+    End Sub
+End Module

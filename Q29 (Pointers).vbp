@@ -1,0 +1,97 @@
+Module Module1
+    Structure NODE
+        Dim DAT As String
+        Dim PTR As Integer
+    End Structure
+    Dim LList(10) As NODE
+    Dim HEAD, FREE, CUR, PREV, NEU As Integer
+    Sub INITIALIZE()
+        For X = 1 To 9
+            LList(X).PTR = X + 1
+        Next
+        LList(10).PTR = 0 '0 = null pointer
+        HEAD = 0
+        FREE = 1
+    End Sub
+    Sub insert(newDat As String)
+        If FREE = 0 Then
+            Console.WriteLine("No space available. Can't add.")
+        Else
+            NEU = FREE
+            LList(NEU).DAT = newDat
+            FREE = LList(NEU).PTR
+            CUR = HEAD
+            While CUR <> 0 And LList(CUR).DAT < newDat
+                PREV = CUR
+                CUR = LList(CUR).PTR
+            End While
+            If CUR = HEAD Then 'adding to head position (also empty list)
+                LList(NEU).PTR = HEAD
+                HEAD = NEU
+            Else
+                LList(PREV).PTR = NEU 'adding to middle or end of the list
+                LList(NEU).PTR = CUR
+            End If
+        End If
+    End Sub
+    Sub printlist()
+        Console.Write("Linked list: HEAD -> ")
+        CUR = HEAD
+        While CUR <> 0
+            Console.Write(LList(CUR).DAT & " ->")
+            CUR = LList(CUR).PTR
+        End While
+        Console.WriteLine("X" & vbNewLine)
+    End Sub
+    Sub printArray()
+        For x = 1 To 10
+            If x = HEAD Then
+                Console.WriteLine("Head -> {0}. {1}{2}{3}", x, LList(x).DAT, vbTab, LList(x).PTR)
+            ElseIf x = FREE Then
+                Console.WriteLine("Free -> {0}. {1}{2}{3}", x, LList(x).DAT, vbTab, LList(x).PTR)
+            Else
+                Console.WriteLine("        {0}. {1}{2}{3}", x, LList(x).DAT, vbTab, LList(x).PTR)
+            End If
+        Next
+    End Sub
+    Sub Delete()
+        Call printlist()
+    End Sub
+    Sub Search()
+    End Sub
+    Sub Main()
+        Dim sn As String
+        Call INITIALIZE()
+        'make an interface menu for this program, 1.add 2.delete 3.search 4.exit
+        Do
+            Console.WriteLine("****!!!Da Menu!!!***" & vbNewLine & "*vague sounds of menu opening in the background*")
+            Console.WriteLine("***beep***    ***beep***    ***beep***")
+            Console.WriteLine("1) Add")
+            Console.WriteLine("2) Display All")
+            Console.WriteLine("3) Delete")
+            Console.WriteLine("4) Search")
+            Console.WriteLine("5) Exit")
+            Console.Write("Enter the number of the action that you desire to execute:- ")
+            sn = Console.ReadLine
+            If sn = "1" Then
+                Console.Write("Enter the value that you wish to add:- ")
+                sn = Console.ReadLine
+                Call insert(sn)
+                Call printArray()
+            ElseIf sn = "2" Then
+                Call printlist()
+            ElseIf sn = "3" Then
+                Call Delete()
+            ElseIf sn = "4" Then
+                Call Search()
+            ElseIf sn = "5" Then
+                Console.WriteLine("Exiting the menu...." & vbNewLine & "Menu exited. Press a key on the keyboard to continue.")
+            Else
+                Console.WriteLine("You have entered an incorrect command. Enter the command again." & vbNewLine & "Press any key on the keyboard to continue.")
+                Console.ReadKey()
+                Console.Clear()
+            End If
+        Loop Until sn = "5"
+        Console.ReadKey()
+    End Sub
+End Module

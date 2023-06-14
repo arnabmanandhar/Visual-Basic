@@ -1,0 +1,62 @@
+Module Module1
+    Sub Main()
+        Dim choice, n1, n2 As Integer
+        Do
+            choice = menu()
+            Select Case choice
+                Case 1, 3, 4
+                    Console.Write("Enter first number:- ")
+                    n1 = Console.ReadLine
+                    Console.Write("Enter second number:- ")
+                    n2 = Console.ReadLine
+                    If choice = 1 Then
+                        Console.WriteLine("The sum is " & add(n1, n2))
+                    ElseIf choice = 3 Then
+                        Console.WriteLine("The substraction is " & subtract(n1, n2))
+                    ElseIf choice = 4 Then
+                        Console.WriteLine("The multiplication is " & multiply(n1, n2)) 
+                    End If
+                Case 2
+                    Console.WriteLine("The division is " & divide())
+            End Select
+            Console.WriteLine("Hit any key to refresh.")
+            Console.ReadKey()
+            Console.Clear()
+        Loop Until choice = 5
+    End Sub
+    Function menu() As Integer
+        Dim choice As Integer
+        Console.WriteLine("Basic Calculator:-" & vbNewLine & "******************")
+        Console.WriteLine("1 = Addition")
+        Console.WriteLine("2 = Division")
+        Console.WriteLine("3 = Subtraction")
+        Console.WriteLine("4 = Multiplication")
+        Console.WriteLine("5 = Close Program")
+        Do
+            Console.Write("Enter your choice:- ")
+            choice = Console.ReadLine
+            If choice < 1 Or choice > 5 Then
+                Console.Write("Invalid!" & vbNewLine & "Enter again." & vbNewLine)
+            Else
+                Return choice
+            End If
+        Loop
+    End Function
+    Function add(n1 As Integer, n2 As Integer) As Integer
+        add = n1 + n2
+    End Function
+    Function divide() As Single
+        Dim n1, n2 As Integer
+        Console.Write("Enter first number:- ")
+        n1 = Console.ReadLine
+        Console.Write("Enter second number:- ")
+        n2 = Console.ReadLine
+        divide = n1 / n2
+    End Function
+    Function subtract(n1 As Integer, n2 As Integer)
+        subtract = n1 - n2
+    End Function
+    Function multiply(n1 As Integer, n2 As Integer)
+        multiply = n1 * n2
+    End Function
+End Module
